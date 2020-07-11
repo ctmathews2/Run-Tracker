@@ -12,7 +12,8 @@ import Firebase
 class ViewController: UIViewController {
 
     let myDatabase = Database.database().reference()
-    
+    let tracker: TrackTime = TrackTime()
+    @IBOutlet weak var timeLabel: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,19 @@ class ViewController: UIViewController {
             }
         }*/
         myDatabase.setValue("Hello World!")
+        timeLabel?.text = "Hello World"
+        tracker.start()
+        
     }
+    
+    @objc func updateTimer(){
+        tracker.seconds += 1
+        timeLabel?.text = "Seconds: \(tracker.seconds)"
+        print("Seconds: \(tracker.seconds)")
+        if tracker.seconds == 10 {
+            tracker.stopTimer()
+        }
+    }
+    
 }
 

@@ -15,6 +15,7 @@
 		E071424324B8C7E7009E41C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E071424124B8C7E7009E41C3 /* LaunchScreen.storyboard */; };
 		E071424E24B8C7E7009E41C3 /* Run_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E071424D24B8C7E7009E41C3 /* Run_TrackerTests.swift */; };
 		E0A1AD5524B8CE4600019E26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0A1AD5424B8CE4600019E26 /* GoogleService-Info.plist */; };
+		E0D33F7D24BA5065007081F4 /* TrackTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D33F7C24BA5065007081F4 /* TrackTime.swift */; };
 		FF5BDE5095882D5F89322343 /* Pods_Run_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458C7BC721AA0EB99C411E05 /* Pods_Run_Tracker.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		E071424D24B8C7E7009E41C3 /* Run_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run_TrackerTests.swift; sourceTree = "<group>"; };
 		E071424F24B8C7E7009E41C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0A1AD5424B8CE4600019E26 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E0D33F7C24BA5065007081F4 /* TrackTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				E071424124B8C7E7009E41C3 /* LaunchScreen.storyboard */,
 				E071424424B8C7E7009E41C3 /* Info.plist */,
 				E0A1AD5424B8CE4600019E26 /* GoogleService-Info.plist */,
+				E0D33F7C24BA5065007081F4 /* TrackTime.swift */,
 			);
 			path = "Run Tracker";
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			files = (
 				E071423B24B8C7E6009E41C3 /* ViewController.swift in Sources */,
 				E071423724B8C7E6009E41C3 /* AppDelegate.swift in Sources */,
+				E0D33F7D24BA5065007081F4 /* TrackTime.swift in Sources */,
 				E071423924B8C7E6009E41C3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
