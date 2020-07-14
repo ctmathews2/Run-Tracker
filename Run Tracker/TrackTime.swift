@@ -16,15 +16,29 @@ class TrackTime{
     var minutes: Int = 0
     var hours: Int = 0
     
-    func start(){
+    func start(label: UILabel){
         // 1. Make a new timer
-        timer = Timer.scheduledTimer(timeInterval: 1, target: ViewController(),   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        //self.timer = Timer.scheduledTimer(timeInterval: 1, target: ViewController(),   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timerValue) in
+            if self.timer != nil {
+                self.update(label: label)
+            }
+        })
     }
     
+    func update(label: UILabel){
+        self.seconds += 1
+        label.text = "Seconds: \(self.seconds)"
+        print("Seconds: \(self.seconds)")
+        if self.seconds == 10 {
+            print("Got here")
+            self.stopTimer()
+        }
+    }
     
     func stopTimer(){
-      timer?.invalidate()
-      timer = nil
+        self.timer?.invalidate()
+        self.timer = nil
     }
     
 }

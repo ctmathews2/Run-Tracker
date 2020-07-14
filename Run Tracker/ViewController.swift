@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     let myDatabase = Database.database().reference()
     let tracker: TrackTime = TrackTime()
-    @IBOutlet weak var timeLabel: UILabel?
+    let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +23,38 @@ class ViewController: UIViewController {
                 print(error!)
             }
         }*/
-        myDatabase.setValue("Hello World!")
-        timeLabel?.text = "Hello World"
-        tracker.start()
         
+        timeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        timeLabel.textColor = .black
+        timeLabel.center = CGPoint(x: 160, y: 284)
+        timeLabel.textAlignment = .center
+        timeLabel.text = "Hello World"
+        self.view.addSubview(timeLabel)
+        
+        myDatabase.setValue("Hello World!")
+        
+        tracker.start(label: timeLabel)
     }
     
     @objc func updateTimer(){
         tracker.seconds += 1
-        timeLabel?.text = "Seconds: \(tracker.seconds)"
+        //timeLabel.text = "Seconds: \(tracker.seconds)"
         print("Seconds: \(tracker.seconds)")
         if tracker.seconds == 10 {
+            print("Got here")
             tracker.stopTimer()
+            tracker.timer?.invalidate()
+        }
+    }
+    
+    func testUpdateLabel(){
+        tracker.seconds += 1
+        timeLabel.text = "Seconds: \(tracker.seconds)"
+        print("Seconds: \(tracker.seconds)")
+        if tracker.seconds == 10 {
+            print("Got here")
+            tracker.stopTimer()
+            tracker.timer?.invalidate()
         }
     }
     
