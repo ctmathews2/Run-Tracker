@@ -29,16 +29,12 @@ class TrackTime{
     func update(label: UILabel){
         self.seconds += 1
         label.text = "Seconds: \(self.seconds)"
-        print("Seconds: \(self.seconds)")
-        if self.seconds == 10 {
-            print("Got here")
-            self.stopTimer()
-        }
     }
     
     func stopTimer(){
         self.timer?.invalidate()
         self.timer = nil
+        self.seconds = 0
     }
     
 }

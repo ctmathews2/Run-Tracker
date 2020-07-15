@@ -14,6 +14,11 @@ class ViewController: UIViewController {
     let myDatabase = Database.database().reference()
     let tracker: TrackTime = TrackTime()
     let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    // Start button
+    let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    // Pause button
+    // Stop button
+    let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +29,7 @@ class ViewController: UIViewController {
             }
         }*/
         
+        // Time Label
         timeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         timeLabel.textColor = .black
         timeLabel.center = CGPoint(x: 160, y: 284)
@@ -31,31 +37,35 @@ class ViewController: UIViewController {
         timeLabel.text = "Hello World"
         self.view.addSubview(timeLabel)
         
+        // Start button
+        startButton.setTitle("Start", for: .normal)
+        startButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        startButton.setTitleColor(UIColor.blue, for: .normal)
+        startButton.setTitleColor(UIColor.black, for: .highlighted)
+        startButton.center = CGPoint(x: 160, y: 304)
+        self.view.addSubview(startButton)
+        
+        // Stop button
+        stopButton.setTitle("Stop", for: .normal)
+        stopButton.addTarget(self, action: #selector(buttonTapped2(_:)), for: .touchUpInside)
+        stopButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        stopButton.setTitleColor(UIColor.blue, for: .normal)
+        stopButton.setTitleColor(UIColor.black, for: .highlighted)
+        stopButton.center = CGPoint(x: 160, y: 344)
+        self.view.addSubview(stopButton)
+        
         myDatabase.setValue("Hello World!")
         
-        tracker.start(label: timeLabel)
+        
     }
     
-    @objc func updateTimer(){
-        tracker.seconds += 1
-        //timeLabel.text = "Seconds: \(tracker.seconds)"
-        print("Seconds: \(tracker.seconds)")
-        if tracker.seconds == 10 {
-            print("Got here")
-            tracker.stopTimer()
-            tracker.timer?.invalidate()
-        }
+    @IBAction func buttonTapped(_ sender: UIButton){
+       tracker.start(label: timeLabel)
     }
     
-    func testUpdateLabel(){
-        tracker.seconds += 1
-        timeLabel.text = "Seconds: \(tracker.seconds)"
-        print("Seconds: \(tracker.seconds)")
-        if tracker.seconds == 10 {
-            print("Got here")
-            tracker.stopTimer()
-            tracker.timer?.invalidate()
-        }
+    @IBAction func buttonTapped2(_ sender: UIButton){
+        tracker.stopTimer()
     }
     
 }
