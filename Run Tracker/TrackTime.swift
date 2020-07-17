@@ -31,10 +31,19 @@ class TrackTime{
         label.text = "Seconds: \(self.seconds)"
     }
     
-    func stopTimer(){
-        self.timer?.invalidate()
-        self.timer = nil
-        self.seconds = 0
+    func stopTimer( button: UIButton){
+        
+        if(button.titleLabel?.text == "Pause"){
+            self.timer?.invalidate()
+            //self.timer = nil
+            button.setTitle("Stop", for: .normal)
+        }else if(button.titleLabel?.text == "Stop"){
+            self.seconds = 0
+            self.timer?.invalidate()
+            self.timer = nil
+            
+            button.setTitle("Pause", for: .normal)
+        }
     }
     
 }

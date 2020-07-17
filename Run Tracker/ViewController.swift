@@ -17,6 +17,16 @@ class ViewController: UIViewController {
     // Start button
     let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     // Pause button
+    let pauseButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.setTitle("Pause", for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        button.setTitleColor(UIColor.black, for: .highlighted)
+        button.center = CGPoint(x: 160, y: 304)
+        return button
+    }()
     // Stop button
     let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
@@ -47,7 +57,7 @@ class ViewController: UIViewController {
         self.view.addSubview(startButton)
         
         // Stop button
-        stopButton.setTitle("Stop", for: .normal)
+        stopButton.setTitle("Pause", for: .normal)
         stopButton.addTarget(self, action: #selector(buttonTapped2(_:)), for: .touchUpInside)
         stopButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         stopButton.setTitleColor(UIColor.blue, for: .normal)
@@ -65,8 +75,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTapped2(_ sender: UIButton){
-        tracker.stopTimer()
+        tracker.stopTimer(button: sender)
     }
     
 }
-
