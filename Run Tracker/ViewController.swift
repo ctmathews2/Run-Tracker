@@ -31,13 +31,34 @@ class ViewController: UIViewController {
         }*/
         
         //Array
-        let labelArray = [label1, label2]
+        //let labelArray = [label1, label2]
+        var labelArray = [UILabel]()
+        let label3 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let label4 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let label5 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let label6 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        
+        labelArray = [label3, label4, label5, label6]
+        for label in labelArray{
+            label.font = UIFont.preferredFont(forTextStyle: .footnote)
+            label.textColor = .black
+            label.textAlignment = .center
+            label.backgroundColor = .blue
+            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
+            label.heightAnchor.constraint(equalToConstant: 100)])
+            label.text = "Label"
+        }
+        
         
         let stackView = UIStackView(arrangedSubviews: labelArray)
         stackView.axis = .vertical
-        stackView.distribution = .fillEqually
+        //stackView.distribution = .fill
+        //stackView.alignment = .fill
         stackView.alignment = .fill
-        stackView.spacing = 5
+        stackView.spacing = 30
+        
+        //stackView.backgroundColor = .cyan
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
         (stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)).isActive = true
@@ -82,12 +103,17 @@ class ViewController: UIViewController {
     }
     
     // Make closures for each label here
+    // for labels needed (in array)
+    //      create the label and add it to stack view
+    //      May need different
     let label1: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .black
         label.textAlignment = .center
         label.text = "Label 1"
+        
+        
         return label
     }()
     
