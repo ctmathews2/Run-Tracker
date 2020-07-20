@@ -17,16 +17,7 @@ class ViewController: UIViewController {
     // Start button
     let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     // Pause button
-    let pauseButton: UIButton = {
-        let button = UIButton(type: UIButton.ButtonType.system)
-        button.setTitle("Pause", for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        button.setTitleColor(UIColor.blue, for: .normal)
-        button.setTitleColor(UIColor.black, for: .highlighted)
-        button.center = CGPoint(x: 160, y: 304)
-        return button
-    }()
+    
     // Stop button
     let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
@@ -39,6 +30,18 @@ class ViewController: UIViewController {
             }
         }*/
         
+        //Array
+        let labelArray = [label1, label2]
+        
+        let stackView = UIStackView(arrangedSubviews: labelArray)
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+        (stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)).isActive = true
+        (stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)).isActive = true
         // Time Label
         timeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         timeLabel.textColor = .black
@@ -77,5 +80,33 @@ class ViewController: UIViewController {
     @IBAction func buttonTapped2(_ sender: UIButton){
         tracker.stopTimer(button: sender)
     }
+    
+    // Make closures for each label here
+    let label1: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.text = "Label 1"
+        return label
+    }()
+    
+    let label2: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.text = "Label 1"
+        return label
+    }()
+   
+    
+    // add them to a stackview? or atleast a new view
+    
+    
+    //
+    // add that view to main view
+    // make constraints for the view
+    
     
 }
