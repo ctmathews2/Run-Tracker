@@ -13,7 +13,11 @@ class ViewController: UIViewController {
 
     let myDatabase = Database.database().reference()
     let tracker: TrackTime = TrackTime()
+    //let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let timeLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let distanceLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     // Start button
     let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     // Pause button
@@ -30,20 +34,13 @@ class ViewController: UIViewController {
             }
         }*/
         
-        //Array
-        //let labelArray = [label1, label2]
         var labelArray = [UILabel]()
-        let label3 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        let label4 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        let label5 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        let label6 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        
-        labelArray = [label3, label4, label5, label6]
+        labelArray = [timeLabelHeader, timeLabel, distanceLabelHeader, distanceLabel]
         for label in labelArray{
             label.font = UIFont.preferredFont(forTextStyle: .footnote)
-            label.textColor = .black
+            label.textColor = .white
             label.textAlignment = .center
-            label.backgroundColor = .blue
+            label.backgroundColor = .black
             label.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
             label.heightAnchor.constraint(equalToConstant: 100)])
@@ -52,24 +49,31 @@ class ViewController: UIViewController {
         
         
         let stackView = UIStackView(arrangedSubviews: labelArray)
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([startButton.widthAnchor.constraint(equalToConstant: 200),
+        startButton.heightAnchor.constraint(equalToConstant: 100)])
+        stopButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([stopButton.widthAnchor.constraint(equalToConstant: 200),
+        stopButton.heightAnchor.constraint(equalToConstant: 100)])
+        let stackView2 = UIStackView()
+        stackView2.addArrangedSubview(startButton)
+        stackView2.addArrangedSubview(stopButton)
+        stackView2.axis = .horizontal
+        stackView2.alignment = .center
+        stackView2.spacing = 10
+        stackView2.translatesAutoresizingMaskIntoConstraints = false
+        
+        //(stackView2.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)).isActive = true
+        stackView.addArrangedSubview(stackView2)
+        
+        
         stackView.axis = .vertical
-        //stackView.distribution = .fill
-        //stackView.alignment = .fill
         stackView.alignment = .fill
         stackView.spacing = 30
-        
-        //stackView.backgroundColor = .cyan
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
         (stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)).isActive = true
         (stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)).isActive = true
-        // Time Label
-        timeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        timeLabel.textColor = .black
-        timeLabel.center = CGPoint(x: 160, y: 284)
-        timeLabel.textAlignment = .center
-        timeLabel.text = "Hello World"
-        self.view.addSubview(timeLabel)
         
         // Start button
         startButton.setTitle("Start", for: .normal)
@@ -77,8 +81,8 @@ class ViewController: UIViewController {
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         startButton.setTitleColor(UIColor.blue, for: .normal)
         startButton.setTitleColor(UIColor.black, for: .highlighted)
-        startButton.center = CGPoint(x: 160, y: 304)
-        self.view.addSubview(startButton)
+        //startButton.center = CGPoint(x: 150, y: 750)
+        //self.view.addSubview(startButton)
         
         // Stop button
         stopButton.setTitle("Pause", for: .normal)
@@ -86,12 +90,10 @@ class ViewController: UIViewController {
         stopButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         stopButton.setTitleColor(UIColor.blue, for: .normal)
         stopButton.setTitleColor(UIColor.black, for: .highlighted)
-        stopButton.center = CGPoint(x: 160, y: 344)
-        self.view.addSubview(stopButton)
+        //stopButton.center = CGPoint(x: 200, y: 750)
+        //self.view.addSubview(stopButton)
         
         myDatabase.setValue("Hello World!")
-        
-        
     }
     
     @IBAction func buttonTapped(_ sender: UIButton){
@@ -101,38 +103,5 @@ class ViewController: UIViewController {
     @IBAction func buttonTapped2(_ sender: UIButton){
         tracker.stopTimer(button: sender)
     }
-    
-    // Make closures for each label here
-    // for labels needed (in array)
-    //      create the label and add it to stack view
-    //      May need different
-    let label1: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.text = "Label 1"
-        
-        
-        return label
-    }()
-    
-    let label2: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.text = "Label 1"
-        return label
-    }()
-   
-    
-    // add them to a stackview? or atleast a new view
-    
-    
-    //
-    // add that view to main view
-    // make constraints for the view
-    
     
 }
