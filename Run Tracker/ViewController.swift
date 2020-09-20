@@ -50,16 +50,17 @@ class ViewController: UIViewController {
         
         let stackView = UIStackView(arrangedSubviews: labelArray)
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([startButton.widthAnchor.constraint(equalToConstant: 200),
+        NSLayoutConstraint.activate([startButton.widthAnchor.constraint(equalToConstant: 100),
         startButton.heightAnchor.constraint(equalToConstant: 100)])
         stopButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([stopButton.widthAnchor.constraint(equalToConstant: 200),
+        NSLayoutConstraint.activate([stopButton.widthAnchor.constraint(equalToConstant: 100),
         stopButton.heightAnchor.constraint(equalToConstant: 100)])
         let stackView2 = UIStackView()
         stackView2.addArrangedSubview(startButton)
         stackView2.addArrangedSubview(stopButton)
         stackView2.axis = .horizontal
-        stackView2.alignment = .center
+        stackView2.alignment = .firstBaseline
+        stackView2.distribution = .fillEqually
         stackView2.spacing = 10
         stackView2.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,6 +73,7 @@ class ViewController: UIViewController {
         stackView.spacing = 30
         stackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stackView)
+        //view.addSubview(stackView2)
         (stackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)).isActive = true
         (stackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)).isActive = true
         
@@ -81,6 +83,7 @@ class ViewController: UIViewController {
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         startButton.setTitleColor(UIColor.blue, for: .normal)
         startButton.setTitleColor(UIColor.black, for: .highlighted)
+        startButton.backgroundColor = .black
         //startButton.center = CGPoint(x: 150, y: 750)
         //self.view.addSubview(startButton)
         
@@ -90,6 +93,7 @@ class ViewController: UIViewController {
         stopButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
         stopButton.setTitleColor(UIColor.blue, for: .normal)
         stopButton.setTitleColor(UIColor.black, for: .highlighted)
+        stopButton.backgroundColor = .black
         //stopButton.center = CGPoint(x: 200, y: 750)
         //self.view.addSubview(stopButton)
         
