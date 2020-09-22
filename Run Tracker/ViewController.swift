@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     let myDatabase = Database.database().reference()
     let tracker: TrackTime = TrackTime()
     //let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    let timeLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let timeLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 10))
+    let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
     let distanceLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     // Start button
@@ -38,13 +38,31 @@ class ViewController: UIViewController {
         labelArray = [timeLabelHeader, timeLabel, distanceLabelHeader, distanceLabel]
         for label in labelArray{
             label.font = UIFont.preferredFont(forTextStyle: .footnote)
-            label.textColor = .white
+            label.textColor = .black
             label.textAlignment = .center
-            label.backgroundColor = .black
+            label.backgroundColor = .white
+            label.layer.borderColor = UIColor.black.cgColor
+            label.layer.borderWidth = 3.0
             label.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
             label.heightAnchor.constraint(equalToConstant: 100)])
-            label.text = "Label"
+            switch label {
+            case timeLabelHeader:
+                label.text = "Time Label Header"
+                NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
+                label.heightAnchor.constraint(equalToConstant: 50)])
+            case timeLabel:
+                label.text = "Time"
+            case distanceLabelHeader:
+                label.text = "Distance Label Header"
+                NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
+                label.heightAnchor.constraint(equalToConstant: 50)])
+            case distanceLabel:
+                label.text = "Distance"
+            default:
+                label.text = "Label"
+            }
+            
         }
         
         
@@ -81,7 +99,7 @@ class ViewController: UIViewController {
         startButton.setTitle("Start", for: .normal)
         startButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        startButton.setTitleColor(UIColor.blue, for: .normal)
+        startButton.setTitleColor(UIColor.white, for: .normal)
         startButton.setTitleColor(UIColor.black, for: .highlighted)
         startButton.backgroundColor = .black
         //startButton.center = CGPoint(x: 150, y: 750)
@@ -91,7 +109,7 @@ class ViewController: UIViewController {
         stopButton.setTitle("Pause", for: .normal)
         stopButton.addTarget(self, action: #selector(buttonTapped2(_:)), for: .touchUpInside)
         stopButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.0)
-        stopButton.setTitleColor(UIColor.blue, for: .normal)
+        stopButton.setTitleColor(UIColor.white, for: .normal)
         stopButton.setTitleColor(UIColor.black, for: .highlighted)
         stopButton.backgroundColor = .black
         //stopButton.center = CGPoint(x: 200, y: 750)

@@ -14,7 +14,7 @@ class TrackTime{
     var timer: Timer? = nil
     var seconds: Int = 0
     var minutes: Int = 0
-    var hours: Int = 0
+    //var hours: Int = 0
     
     func start(label: UILabel){
         // 1. Make a new timer
@@ -28,7 +28,20 @@ class TrackTime{
     
     func update(label: UILabel){
         self.seconds += 1
-        label.text = "Seconds: \(self.seconds)"
+        if(seconds >= 60){
+            minutes += 1
+            seconds = 0
+        }
+        if(minutes < 10){
+            label.text = "0\(minutes):"
+        }else{
+            label.text = "\(minutes):"
+        }
+        if(seconds < 10){
+            label.text! += "0\(seconds)"
+        }else{
+            label.text! += "\(seconds)"
+        }
     }
     
     func stopTimer( button: UIButton){
