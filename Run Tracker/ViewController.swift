@@ -112,6 +112,8 @@ class ViewController: UIViewController {
         stopButton.setTitleColor(UIColor.white, for: .normal)
         stopButton.setTitleColor(UIColor.black, for: .highlighted)
         stopButton.backgroundColor = .black
+        //stopButton.isEnabled = false
+        setDisabled(button: stopButton)
         //stopButton.center = CGPoint(x: 200, y: 750)
         //self.view.addSubview(stopButton)
         
@@ -119,11 +121,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton){
-       tracker.start(label: timeLabel)
+        //startButton.isEnabled = false
+        setDisabled(button: startButton)
+        //stopButton.isEnabled = true
+        setEnabled(button: stopButton)
+        tracker.start(label: timeLabel, button: stopButton)
     }
     
     @IBAction func buttonTapped2(_ sender: UIButton){
+        setEnabled(button: startButton)
+        if(stopButton.titleLabel?.text == "Stop"){
+            //stopButton.isEnabled = false
+            setDisabled(button: stopButton)
+        }
         tracker.stopTimer(button: sender)
+    }
+    
+    func setDisabled(button: UIButton){
+        button.isEnabled = false
+        button.backgroundColor = .lightGray
+    }
+    
+    func setEnabled(button: UIButton){
+        button.isEnabled = true
+        button.backgroundColor = .black
     }
     
 }

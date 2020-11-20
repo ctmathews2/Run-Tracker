@@ -16,7 +16,7 @@ class TrackTime{
     var minutes: Int = 0
     //var hours: Int = 0
     
-    func start(label: UILabel){
+    func start(label: UILabel, button: UIButton){
         // 1. Make a new timer
         //self.timer = Timer.scheduledTimer(timeInterval: 1, target: ViewController(),   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
         self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timerValue) in
@@ -24,6 +24,9 @@ class TrackTime{
                 self.update(label: label)
             }
         })
+        if(button.titleLabel?.text == "Stop"){
+            button.setTitle("Pause", for: .normal)
+        }
     }
     
     func update(label: UILabel){
