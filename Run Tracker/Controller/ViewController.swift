@@ -6,24 +6,31 @@
 //  Copyright © 2020 Chandler Mathews. All rights reserved.
 //
 
+/* TODO:
+ * Text inside boxes
+ * Track Distance
+ * Pop up after stop with time distance and pace
+ * ... Set up nav bar and history page?
+ */
+
 import UIKit
 import Firebase
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let myDatabase = Database.database().reference()
     let tracker: TrackTime = TrackTime()
-    //let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    let timeLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 10))
-    let timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-    let distanceLabelHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    let distanceLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    // Start button
-    let startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    // Pause button
     
-    // Stop button
-    let stopButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    let timeLabelHeader = UILabel(), timeLabel = UILabel(), distanceLabelHeader = UILabel(), distanceLabel = UILabel()
+    let startButton = UIButton(), stopButton = UIButton()
+    
+    var locationManager: CLLocationManager?
+    
+    var firstCord : CLLocation? = nil
+    var lastCord : CLLocation? = nil
+    var distanceInMeters : double_t = 0
+    var tracking : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +40,10 @@ class ViewController: UIViewController {
                 print(error!)
             }
         }*/
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.requestAlwaysAuthorization()
+        
         
         var labelArray = [UILabel]()
         labelArray = [timeLabelHeader, timeLabel, distanceLabelHeader, distanceLabel]
@@ -48,21 +59,20 @@ class ViewController: UIViewController {
             label.heightAnchor.constraint(equalToConstant: 100)])
             switch label {
             case timeLabelHeader:
-                label.text = "Time Label Header"
+                label.text = "Time"
                 NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
                 label.heightAnchor.constraint(equalToConstant: 50)])
             case timeLabel:
-                label.text = "Time"
+                label.text = "00:00"
             case distanceLabelHeader:
-                label.text = "Distance Label Header"
+                label.text = "Distance (miles)"
                 NSLayoutConstraint.activate([label.widthAnchor.constraint(equalToConstant: 200),
                 label.heightAnchor.constraint(equalToConstant: 50)])
             case distanceLabel:
-                label.text = "Distance"
+                label.text = "0.00"
             default:
                 label.text = "Label"
             }
-            
         }
         
         
@@ -126,14 +136,18 @@ class ViewController: UIViewController {
         //stopButton.isEnabled = true
         setEnabled(button: stopButton)
         tracker.start(label: timeLabel, button: stopButton)
+        tracking = true
     }
     
     @IBAction func buttonTapped2(_ sender: UIButton){
         setEnabled(button: startButton)
         if(stopButton.titleLabel?.text == "Stop"){
             //stopButton.isEnabled = false
+            distanceInMeters = 0
             setDisabled(button: stopButton)
+            
         }
+        tracking = false
         tracker.stopTimer(button: sender)
     }
     
@@ -145,6 +159,35 @@ class ViewController: UIViewController {
     func setEnabled(button: UIButton){
         button.isEnabled = true
         button.backgroundColor = .black
+    }
+    
+    // Tracking distance
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
+            // you're good to go!
+            print("Now tracking location")
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.startUpdatingLocation()
+        } else {
+            print("Not allowed to track location")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            if firstCord == nil {
+                firstCord = location
+            }
+            
+            lastCord = location
+            if tracking == true {
+                distanceInMeters += firstCord!.distance(from: lastCord!)
+                distanceLabel.text = String(((distanceInMeters*0.000621371)*100).rounded() / 100)
+            }
+            firstCord = lastCord
+            
+        }
     }
     
 }
